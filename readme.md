@@ -1,4 +1,4 @@
-# Java Rest Assured API Automation
+# Java Automation
 
 ## Technologies
 - Java openjdk version "11.0.16.1" 2022-08-12
