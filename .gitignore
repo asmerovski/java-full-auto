@@ -17,3 +17,6 @@ target/
 
 ### Mac OS ###
 .DS_Store
+/.allure/
+/.idea/
+/allure-results/
