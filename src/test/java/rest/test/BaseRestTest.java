@@ -3,7 +3,7 @@ package rest.test;
 import static util.Hooks.attachLog;
 import static util.Hooks.clearLogs;
 
-import enums.TestEnvironment;
+import enums.TestData;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
@@ -18,7 +18,7 @@ public class BaseRestTest {
 
   @BeforeAll
   public static void setBaseURL() {
-    RestAssured.baseURI = TestEnvironment.BASE_URL.getUrl();
+    RestAssured.baseURI = TestData.REST_BASE_URL.get();
   }
 
   @BeforeEach

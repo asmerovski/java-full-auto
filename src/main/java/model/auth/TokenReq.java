@@ -1,6 +1,6 @@
 package model.auth;
 
-import constants.TestData;
+import enums.TestData;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,11 +8,11 @@ import lombok.Data;
 @Builder
 public class TokenReq {
 
-  public String key;
+    public String key;
 
-  public static TokenReq tokenPayload() {
-    return TokenReq.builder()
-        .key(TestData.ENCRYPTED_KEY)
-        .build();
-  }
+    public static TokenReq tokenPayload() {
+        return TokenReq.builder()
+                .key(TestData.ENCRYPTED_KEY.get())
+                .build();
+    }
 }

@@ -3,7 +3,7 @@ package rest.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import constants.TagMe;
-import constants.TestData;
+import enums.TestData;
 import io.restassured.response.Response;
 import model.auth.TokenDecodeRes;
 import model.auth.TokenReq;
@@ -33,7 +33,7 @@ public class AuthTest extends BaseRestTest {
   @DisplayName("C95462: POST token decode by encrypted key - /v1/tokenDecode/{encryptedKey}")
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   void postTokenDecode() {
-    Response postTokenResponse = ApiCall.post("/v1/tokenDecode/" + TestData.ENCRYPTED_KEY);
+    Response postTokenResponse = ApiCall.post("/v1/tokenDecode/" + TestData.ENCRYPTED_KEY.get());
 
     postTokenResponse.as(TokenDecodeRes.class);
 
@@ -41,7 +41,7 @@ public class AuthTest extends BaseRestTest {
   }
 
   @Test
-  @DisplayName("C95462: POST token decode by encrypted key - /v1/tokenDecode/{encryptedKey}")
+  @DisplayName("C95463: GET property detail by address - /v1.1/propertyDetail/byAddress")
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   void getPropertyDetailByAddress() {
     Response postTokenResponse = ApiCall.get(
@@ -51,5 +51,18 @@ public class AuthTest extends BaseRestTest {
 //    postTokenResponse.as(TokenDecodeRes.class);
 
     assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
+  }
+
+  @Test
+  @DisplayName("C95464: Get property detail by homeownerId - /v1.1/propertyDetail/{homeownerId}")
+  @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
+  void getPropertyDetailByHomeownerId() {
+//    Response postTokenResponse = ApiCall.get(
+//            "/v1.1/propertyDetail/" + homeownerId,
+//            getAuthenticationHeaders());
+
+//    postTokenResponse.as(TokenDecodeRes.class);
+
+//    assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
   }
 }
