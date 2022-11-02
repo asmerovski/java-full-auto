@@ -15,12 +15,6 @@ public class GoogleTest extends BaseWebTest {
   public void openGoogleTest() {
     new GoogleHomePage(getDriver())
         .open()
-        .searchFor("Bosnia i Hercegovina");
-
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+        .searchFor("Sarajevo");
   }
 }

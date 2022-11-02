@@ -6,7 +6,7 @@ import static util.Hooks.setRequestLog;
 import io.qameta.allure.Step;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.http.ContentType;
-import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import java.io.PrintStream;
 import java.io.StringWriter;
@@ -18,38 +18,18 @@ public class ApiCall {
    * GET call made over RestAssured
    *
    * @param endpoint Endpoint path
+   * @param headers  Headers sent with this request
    * @return Returns RestAssured library 'Response' type
    */
-  @Step("GET method resource identified by the request URI ")
-  public static Response get(String endpoint) {
-    StringWriter requestWriter = new StringWriter();
-    PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
-
-    Response response = given()
-        .filter(new RequestLoggingFilter(requestCapture))
-        .get(endpoint);
-
-    setRequestLog(requestWriter, response);
-
-    return response;
-  }
-
-  /**
-   * GET call made over RestAssured
-   *
-   * @param endpoint Endpoint path
-   * @param header   Headers sent with this request
-   * @return Returns RestAssured library 'Response' type
-   */
-  @Step("GET method resource identified by the request URI with headers")
-  public static Response get(String endpoint, Header header) {
+  @Step("GET method resource identified by the request path with headers")
+  public static Response get(String endpoint, Headers headers) {
     StringWriter requestWriter = new StringWriter();
     PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
 
     Response response = given()
         .contentType(ContentType.JSON)
         .filter(new RequestLoggingFilter(requestCapture))
-        .header(header)
+        .headers(headers)
         .get(endpoint);
 
     setRequestLog(requestWriter, response);
@@ -61,19 +41,19 @@ public class ApiCall {
    * POST call made over RestAssured
    *
    * @param endpoint Endpoint path
-   * @param header   Headers sent with this request
+   * @param headers  Headers sent with this request
    * @param request  Payload sent with this request
    * @return Returns RestAssured library 'Response' type
    */
-  @Step("POST method resource identified by the request URI ")
-  public static Response post(String endpoint, Header header, Object request) {
+  @Step("POST method resource identified by the request path, headers and payload")
+  public static Response post(String endpoint, Headers headers, Object request) {
     StringWriter requestWriter = new StringWriter();
     PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
 
     Response response = given()
         .contentType(ContentType.JSON)
+        .headers(headers)
         .filter(new RequestLoggingFilter(requestCapture))
-        .header(header)
         .body(request)
         .post(endpoint);
 
@@ -86,90 +66,17 @@ public class ApiCall {
    * POST call made over RestAssured
    *
    * @param endpoint Endpoint path
-   * @param request  Payload sent with this request
    * @return Returns RestAssured library 'Response' type
    */
-  @Step("POST method resource identified by the request URI without header")
-  public static Response post(String endpoint, Object request) {
+  @Step("POST method resource identified by the request path and headers")
+  public static Response post(String endpoint) {
     StringWriter requestWriter = new StringWriter();
     PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
 
     Response response = given()
         .contentType(ContentType.JSON)
         .filter(new RequestLoggingFilter(requestCapture))
-        .body(request)
         .post(endpoint);
-
-    setRequestLog(requestWriter, response);
-
-    return response;
-  }
-
-  /**
-   * PUT call made over RestAssured
-   *
-   * @param endpoint Endpoint path
-   * @param header   Headers sent with this request
-   * @param request  Payload sent with this request
-   * @return Returns RestAssured library 'Response' type
-   */
-  @Step("PUT method resource identified by the request URI ")
-  public static Response put(String endpoint, Header header, Object request) {
-    StringWriter requestWriter = new StringWriter();
-    PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
-
-    Response response = given()
-        .contentType(ContentType.JSON)
-        .filter(new RequestLoggingFilter(requestCapture))
-        .header(header)
-        .body(request)
-        .put(endpoint);
-
-    setRequestLog(requestWriter, response);
-
-    return response;
-  }
-
-  /**
-   * PUT call made over RestAssured
-   *
-   * @param endpoint Endpoint path
-   * @param request  Payload sent with this request
-   * @return Returns RestAssured library 'Response' type
-   */
-  @Step("PUT method resource identified by the request URI without header")
-  public static Response put(String endpoint, Object request) {
-    StringWriter requestWriter = new StringWriter();
-    PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
-
-    Response response = given()
-        .contentType(ContentType.JSON)
-        .filter(new RequestLoggingFilter(requestCapture))
-        .body(request)
-        .put(endpoint);
-
-    setRequestLog(requestWriter, response);
-
-    return response;
-  }
-
-  /**
-   * DELETE call made over RestAssured
-   *
-   * @param endpoint Endpoint path
-   * @param header   Headers sent with this request
-   * @return Returns RestAssured library 'Response' type
-   */
-  @Step("DELETE method resource identified by the request URI ")
-  public static Response delete(String endpoint, Header header) {
-    StringWriter requestWriter = new StringWriter();
-    PrintStream requestCapture = new PrintStream(new WriterOutputStream(requestWriter, "UTF-8"), true);
-
-    Response response = given()
-        .contentType(ContentType.JSON)
-        .filter(new RequestLoggingFilter(requestCapture))
-        .header(header)
-        .delete(endpoint);
 
     setRequestLog(requestWriter, response);
 

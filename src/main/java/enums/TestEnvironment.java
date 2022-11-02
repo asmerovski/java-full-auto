@@ -10,21 +10,26 @@ public enum TestEnvironment {
     public String getUrl() {
       if (System.getProperty("eut") != null) {
         switch (System.getProperty("eut")) {
-          case LOCAL:
-            return "https://reqres.in";
           case DEVELOP:
-            return "https://reqres.in";
+            return "https://dev.corehomeapi.com/";
+          case UAT:
+            return "https://uat.corehomeapi.com";
+          case STAGING:
+            return "https://staging.corehomeapi.com";
           default:
-            return "https://reqres.in";
+            return "https://qa.corehomeapi.com";
         }
       } else {
-        return "https://reqres.in";
+        return "https://qa.corehomeapi.com";
       }
     }
+
+    public static final String DEVELOP = "dev";
+    public static final String QA = "qa";
+    public static final String UAT = "uat";
+    public static final String STAGING = "staging";
   };
 
-  public static final String LOCAL = "local";
-  public static final String DEVELOP = "dev";
 
   public String getUrl() {
     return "";
