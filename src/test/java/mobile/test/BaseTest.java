@@ -114,8 +114,7 @@ public class BaseTest {
     capabilities.setCapability("autoAcceptAlerts", "true");
     capabilities.setCapability("fullReset", "true");
     capabilities.setCapability("noReset", "false");
-    capabilities.setCapability("app", System.getProperty("user.dir") + "/src/main/resources/apps/ApiDemos-debug.apk");
-//    capabilities.setCapability("app", "/Users/amir.gudic/work/sdet-learning/java-full-auto/src/main/resources/apps/ApiDemos-debug.apk");
+    capabilities.setCapability("app", System.getProperty("user.dir") + "/src/main/resources/apps/app-fayke3990-release.apk");
 
     driver.set(new AndroidDriver(new URL("http://localhost:4723/wd/hub/"), capabilities));
   }

@@ -5,7 +5,8 @@ import constants.ProjectConstants;
 public enum TestData {
 
     REST_BASE_URL("https://dev.corehomeapi.com/", "https://qa.corehomeapi.com", "https://uat.corehomeapi.com", "https://staging.corehomeapi.com"),
-    ENCRYPTED_KEY("ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g");
+    ENCRYPTED_KEY("ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g", "ZKSvo5tiY2edq6qfXmRqm6g"),
+    EMAIL("ire.holp.qa+dev@gmail.com", "ire.holp.qa+qa@gmail.com", "ire.holp.qa+uat@gmail.com", "ire.holp.qa+stg@gmail.com");
 
     private final String dev;
     private final String qa;

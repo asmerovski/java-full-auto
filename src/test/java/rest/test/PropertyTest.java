@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import constants.TagMe;
 import enums.TestData;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import model.auth.TokenDecodeRes;
 import model.auth.TokenReq;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import util.ApiCall;
 
+@Feature("Property")
 public class PropertyTest extends BaseRestTest {
 
   @Test
