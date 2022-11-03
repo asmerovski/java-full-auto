@@ -1,0 +1,2990 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "https://7632eb30-c052-4ada-bb4f-be1337d780d2.mock.pstmn.io",
+      "description": "Mock Testing Server"
+    }
+  ],
+  "info": {
+    "description": "This API allows for querying data from the Homeownership Platform, inserting new records and updating data as changes occur.",
+    "version": "1.0.0",
+    "title": "Inside Real Estate Homeownership Platform API",
+    "contact": {
+      "email": "api@insiderealestate.com"
+    },
+    "license": {
+      "name": "Inside Real Estate Homeownership Platform API License",
+      "url": ""
+    }
+  },
+  "tags": [
+    {
+      "name": "property",
+      "description": "Operations that all you to retrieve or update one or more real estate property records"
+    },
+    {
+      "name": "risk",
+      "description": "Operations that return property risk information"
+    },
+    {
+      "name": "market",
+      "description": "Operations that return real estate market statistics for an address or area"
+    },
+    {
+      "name": "mortgage",
+      "description": "Operations that allow you to retrieve or update a mortgage record for a property"
+    },
+    {
+      "name": "insurance",
+      "description": "Operations that allow you to retrieve or update insurance information for a property"
+    },
+    {
+      "name": "recommendation",
+      "description": "Operations that return one or more recommendations"
+    },
+    {
+      "name": "media",
+      "description": "Operations that allow you to retrieve or update media records"
+    },
+    {
+      "name": "homeowner",
+      "description": "Operations that allow you to retrieve or update homeowner information"
+    }
+  ],
+  "paths": {
+    "/v1/propertyDetail/{homeownerId}": {
+      "get": {
+        "tags":[
+          "property"
+        ],
+        "summary": "/v1/propertyDetail/{homeownerId}",
+        "operationId": "getPropertyDetail",
+        "description": "Get a detailed property information about a homeownerId. Optionally enter a propertyId to restrict results to single property for the homeowner.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/propertyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of properties with details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Properties"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "property"
+        ],
+        "summary": "/v1/propertyDetail/{homeownerId}",
+        "operationId": "patchPropertyDetail",
+        "description": "Update an existing property.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PropertyDetail"
+        },
+        "responses": {
+          "200": {
+            "description": "Property Updated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/propertyDetail/byAddress": {
+      "get": {
+        "tags": [
+          "property"
+        ],
+        "summary": "/v1/propertyDetail/byAddress",
+        "operationId": "propertyByAddress",
+        "description": "Get detailed property information for a specific property that matches the address input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a single property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/marketDetail/{homeownerId}": {
+      "get": {
+        "tags": [
+          "market"
+        ],
+        "summary": "/v1/marketDetail/{homeownerId}",
+        "operationId": "getMarketDetail",
+        "description": "Get a detailed set of market statistics related to real estate listings and sales. Optionally enter a propertyId to restrict results to single property for the homeowner.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/propertyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of market statistics for areas to which the given homeowner is subscribed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Markets"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/marketDetail/byArea": {
+      "get": {
+        "tags": [
+          "market"
+        ],
+        "summary": "/v1/marketDetail/byArea",
+        "operationId": "getMarketDetail",
+        "description": "Get a detailed set of market statistics related to real estate listings and sales.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/areaType"
+          },
+          {
+            "$ref": "#/components/parameters/areaId"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of market statistics related to a given area",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/homeownerDetail/{homeownerId}": {
+      "get": {
+        "tags":[
+          "homeowner"
+        ],
+        "summary": "/v1/homeownerDetail/{homeownerId}",
+        "operationId": "getHomeownerDetail",
+        "description": "Get a detailed homeowner record using its unique homeownerId as input.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a homeowner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Homeowner"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "homeowner"
+        ],
+        "summary": "/v1/homeownerDetail/{homeownerId}",
+        "operationId": "patchHomeownerDetail",
+        "description": "Update an existing homeowner.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/HomeownerDetail"
+        },
+        "responses": {
+          "200": {
+            "description": "Homeowner Updated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/homeownerDetail/kvContact/{contactId}": {
+      "get": {
+        "tags":[
+          "homeowner"
+        ],
+        "summary": "/v1/homeownerDetail/kvContact/{contactId}",
+        "operationId": "getHomeownerDetailByKvCoreContactId",
+        "description": "Get a detailed homeowner record using its kvCORE contact ID and agent website domain as input.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/contactId"
+          },
+          {
+            "$ref": "#/components/parameters/domain"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a homeowner",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Homeowner"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/valuationDetail/{homeownerId}": {
+      "get": {
+        "tags":[
+          "property"
+        ],
+        "summary": "/v1/valuationDetail/{homeownerId}",
+        "operationId": "getValuationDetail",
+        "description": "Get a detailed home valuation records using homeownerId as input. Optionally enter a propertyId to restrict results to single property for the homeowner.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/propertyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a home valuation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Valuations"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/valuationDetail/byAddress": {
+      "get": {
+        "tags":[
+          "property"
+        ],
+        "summary": "/v1/valuationDetail/byAddress",
+        "operationId": "getValuationDetail",
+        "description": "Get a detailed home valuation record using its address as input.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about a home valuation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValuationDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/taxDetail/{homeownerId}": {
+      "get": {
+        "tags":[
+          "property"
+        ],
+        "summary": "/v1/taxDetail/{homeownerId}",
+        "operationId": "getTaxDetail",
+        "description": "Get a detailed tax records for a homeowner. Optionally enter a propertyId to restrict results to single property for the homeowner.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/propertyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tax details about a home.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Taxes"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/taxDetail/byAddress": {
+      "get": {
+        "tags":[
+          "property"
+        ],
+        "summary": "/v1/taxDetail/byAddress",
+        "operationId": "getTaxDetail",
+        "description": "Get a detailed home tax record using its address as input.",
+        "parameters":[
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tax details about a home.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaxDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/riskDetail/{homeownerId}": {
+      "get": {
+        "tags": [
+          "market"
+        ],
+        "summary": "/v1/riskDetail/{homeownerId}",
+        "operationId": "getRiskDetail",
+        "description": "Get a detailed set of risk data related to the area with a homeownerId as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/propertyId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of risk data related to a given area",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Risks"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/riskDetail/byAddress": {
+      "get": {
+        "tags": [
+          "market"
+        ],
+        "summary": "/v1/riskDetail/byAddress",
+        "operationId": "getRiskDetailByAddress",
+        "description": "Get a detailed set of risk data related to the area with an address as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of risk data related to a given area",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiskDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/mortgageDetail/{homeownerId}": {
+      "get": {
+        "tags": [
+          "mortgage"
+        ],
+        "summary": "/v1/mortgageDetail/{homeownerId}",
+        "operationId": "getMortgageDetail",
+        "description": "Get a detailed set of mortgage data with a homeownerId as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of mortgage data related to a given homeowner and property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MortgageDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/mortgageDetail/byAddress": {
+      "get": {
+        "tags": [
+          "mortgage"
+        ],
+        "summary": "/v1/mortgageDetail/{homeownerId}",
+        "operationId": "getMortgageDetail",
+        "description": "Get a detailed set of mortgage data with a address as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of mortgage data related to a given homeowner and property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MortgageDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/mortgageDetail/{homeownerId}/loans": {
+      "post": {
+        "tags": [
+          "mortgage"
+        ],
+        "summary": "/v1/mortgageDetail/{homeownerId}/loans",
+        "operationId": "postMortgageDetailLoan",
+        "description": "Add a loan to a property.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MortgageLoan"
+        },
+        "responses": {
+          "201": {
+            "description": "Loan created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loanId"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/mortgageDetail/{homeownerId}/loans/{loanId}": {
+      "patch": {
+        "tags": [
+          "mortgage"
+        ],
+        "summary": "/v1/mortgageDetail/{homeownerId}/loans/{loanId}",
+        "operationId": "patchMortgageDetailLoan",
+        "description": "Update an existing loan on a property with the loanId.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/loanId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MortgageLoan"
+        },
+        "responses": {
+          "200": {
+            "description": "Loan Updated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "mortgage"
+        ],
+        "summary": "/v1/mortgageDetail/{homeownerId}/loans/{loanId}",
+        "operationId": "deleteMortgageDetailLoan",
+        "description": "Delete an existing loan on a property with the loanId.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/loanId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The resource was deleted successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/insuranceDetail/{homeownerId}": {
+      "get": {
+        "tags": [
+          "insurance"
+        ],
+        "summary": "/v1/insuranceDetail/{homeownerId}",
+        "operationId": "getInsuranceDetail",
+        "description": "Get a detailed set of insurance data with a homeownerId as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of insurance data related to a given homeowner and property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsuranceDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/insuranceDetail/byAddress": {
+      "get": {
+        "tags": [
+          "insurance"
+        ],
+        "summary": "/v1/insuranceDetail/byAddress",
+        "operationId": "getInsuranceDetailByAddress",
+        "description": "Get a detailed set of insurance data with an address as input.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/addressLine1"
+          },
+          {
+            "$ref": "#/components/parameters/locality"
+          },
+          {
+            "$ref": "#/components/parameters/countrySubd"
+          },
+          {
+            "$ref": "#/components/parameters/postal1"
+          },
+          {
+            "$ref": "#/components/parameters/country"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A detailed set of insurance data related to a given homeowner and property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsuranceDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/insuranceDetail/{homeownerId}/policies": {
+      "post": {
+        "tags": [
+          "insurance"
+        ],
+        "summary": "/v1/insuranceDetail/{homeownerId}/policies",
+        "operationId": "postInsurancePolicy",
+        "description": "Add an insurance policy to a property.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/InsurancePolicy"
+        },
+        "responses": {
+          "201": {
+            "description": "Policy created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/policyId"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/insuranceDetail/{homeownerId}/policies/{policyId}": {
+      "patch": {
+        "tags": [
+          "insurance"
+        ],
+        "summary": "/v1/insuranceDetail/{homeownerId}/policies/{policyId}",
+        "operationId": "patchInsurancePolicy",
+        "description": "Update an existing insurance policy on a property with a policy Id.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/policyId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/InsurancePolicy"
+        },
+        "responses": {
+          "200": {
+            "description": "Policy Updated"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "insurance"
+        ],
+        "summary": "/v1/insuranceDetail/{homeownerId}/policies/{policyId}",
+        "operationId": "deleteInsurancePolicy",
+        "description": "Delete an existing insurance policy with the policy Id.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/policyId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The resource was deleted successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/v1/media": {
+      "post": {
+        "tags": [
+          "media"
+        ],
+        "summary": "/v1/media",
+        "operationId": "postMedia",
+        "description": "Create media record and return signed S3 url for upload",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MediaUpload"
+        },
+        "responses": {
+          "201": {
+            "description": "Media record created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mediaUploadUrl"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "media"
+        ],
+        "summary": "/v1/media",
+        "operationId": "deleteMedia",
+        "description": "Delete an existing ",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/homeownerId"
+          },
+          {
+            "$ref": "#/components/parameters/policyId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The resource was deleted successfully."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "There was an invalid parameter in the request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The specified resource was not found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "UnexpectedError": {
+        "description": "Something unexpected occured in the processing of the request.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "PropertyDetail" :{
+        "description": "Property Details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PropertyDetail"
+            }
+          }
+        }
+      },
+      "HomeownerDetail" :{
+        "description": "Homeowner Details.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/HomeownerProperties"
+            }
+          }
+        }
+      },
+      "InsurancePolicy": {
+        "description": "Details about an insurance policy on a property.",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "properties": {
+                    "propertyId": {
+                      "$ref": "#/components/schemas/propertyId"
+                    }
+                  }
+                },
+                {
+                  "$ref": "#/components/schemas/PolicyProperties"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "MortgageLoan": {
+        "description": "Details about a loan.",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                { "properties": {
+                  "propertyId": {
+                    "$ref": "#/components/schemas/propertyId"
+                  }
+                }
+                },
+                { "$ref": "#/components/schemas/LoanProperties" }
+              ]
+            }
+          }
+        }
+      },
+      "MediaUpload": {
+        "description": "Details about media.",
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MediaUpload"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "PropertyDetail": {
+        "type": "object",
+        "required":[
+          "propertyId"
+        ],
+        "properties": {
+          "propertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "PropertySummary": {
+            "$ref": "#/components/schemas/PropertySummary"
+          },
+          "Valuation": {
+            "$ref": "#/components/schemas/Valuation"
+          },
+          "Sale": {
+            "$ref": "#/components/schemas/Sale"
+          },
+          "Tax": {
+            "$ref": "#/components/schemas/Tax"
+          },
+          "Media": {
+            "$ref": "#/components/schemas/Media"
+          }
+        }
+      },
+      "Properties":{
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/PropertyDetail"
+        }
+      },
+      "MarketDetail": {
+        "type": "object",
+        "required": [
+          "marketDetailId"
+        ],
+        "properties": {
+          "marketDetailId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 2727615243792
+          },
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "Area": {
+            "$ref": "#/components/schemas/Area"
+          },
+          "ListingStats": {
+            "type": "object",
+            "properties": {
+              "listingsCount": {
+                "type": "integer",
+                "format": "int64",
+                "example": 127
+              },
+              "listingsChange": {
+                "type": "number",
+                "format": "double",
+                "example": 7.10
+              },
+              "newListingsCount": {
+                "type": "integer",
+                "format": "int64",
+                "example": 13
+              },
+              "newListingsChange": {
+                "type": "number",
+                "format": "double",
+                "example": 2.21
+              },
+              "offMarketCount": {
+                "type": "integer",
+                "format": "int64",
+                "example": 12
+              },
+              "offMarketChange": {
+                "type": "number",
+                "format": "double",
+                "example": 1.74
+              },
+              "avgDaysOnMarket": {
+                "type": "integer",
+                "format": "int32",
+                "example": 43
+              },
+              "avgDaysOnMarketChange": {
+                "type": "number",
+                "format": "double",
+                "example": 9.22
+              },
+              "priceReductionsCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 9
+              },
+              "priceReductionsChange": {
+                "type": "number",
+                "format": "double",
+                "example": -0.31
+              },
+              "avgListPrice": {
+                "type": "number",
+                "format": "double",
+                "example": 555122.00
+              },
+              "avgListPriceChange": {
+                "type": "number",
+                "format": "double",
+                "example": -3.17
+              },
+              "listingsHighPrice": {
+                "type": "number",
+                "format": "double",
+                "example": 2655000
+              },
+              "listingsLowPrice": {
+                "type": "number",
+                "format": "double",
+                "example": 319000
+              },
+              "avgPricePerSqMeasure": {
+                "type": "number",
+                "format": "double",
+                "example": 276.86
+              },
+              "avgPricePerSqMeasureChange": {
+                "type": "number",
+                "format": "double",
+                "example": 1.22
+              },
+              "recentListings": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListingSnapshot"
+                }
+              },
+              "hotListings": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListingSnapshot"
+                }
+              },
+              "mostExpensiveListing": {
+                "$ref": "#/components/schemas/ListingSnapshot"
+              }
+            }
+          },
+          "ListingsCountTrend": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "2020-12-31"
+                }
+              },
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32",
+                "example": 147
+              }
+            }
+          },
+          "AverageListingPriceTrend": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "format": "date",
+                  "example": "2020-12-31"
+                }
+              },
+              "additionalProperties": {
+                "type": "number",
+                "format": "double",
+                "example": 546000.00
+              }
+            }
+          },
+          "HomeSalesStats": {
+            "type": "object",
+            "properties": {
+              "salesCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 23
+              },
+              "salesChange": {
+                "type": "number",
+                "format": "double",
+                "example": 2.34
+              },
+              "avgSalesPrice": {
+                "type": "number",
+                "format": "double",
+                "example": 498500.00
+              },
+              "avgSalesChange": {
+                "type": "number",
+                "format": "double",
+                "example": -1.32
+              },
+              "salesToListPriceRatio": {
+                "type": "number",
+                "format": "double",
+                "example": -2.34
+              },
+              "salesToListPriceChange": {
+                "type": "number",
+                "format": "double",
+                "example": 1.71
+              },
+              "recentSales": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ListingSnapshot"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Markets":{
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MarketDetail"
+        }
+      },
+      "Homeowner": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "homeownerId"
+            ],
+            "properties": {
+              "homeownerId": {
+                "$ref": "#/components/schemas/homeownerId"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/HomeownerProperties"
+          }
+        ]
+      },
+      "HomeownerProperties": {
+        "type": "object",
+        "properties": {
+          "contactId" : {
+            "type": "integer",
+            "format": "int64",
+            "example": 127632
+          },
+          "myPropertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "Meta" : {
+            "type": "object",
+            "properties": {
+              "appProfileId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 7243098461
+              },
+              "mlsId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 14
+              },
+              "agentId": {
+                "type": "string",
+                "example": "GH6647H9"
+              },
+              "familyId": {
+                "type": "integer",
+                "format": "int64",
+                "example": 127465254
+              },
+              "birthday": {
+                "type": "string",
+                "format": "date",
+                "example": "1977-07-21"
+              },
+              "gender": {
+                "type": "string",
+                "example": "male"
+              },
+              "perferredPronoun": {
+                "type": "string",
+                "example": "He/Him"
+              },
+              "marketStatsLastUpdate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2021-03-21T17:32:28Z"
+              },
+              "ipAddress": {
+                "type": "string",
+                "format": "ipv4",
+                "example": "109.16.221.1"
+              }
+            }
+          },
+          "Name": {
+            "$ref": "#/components/schemas/Name"
+          },
+          "Communication": {
+            "$ref": "#/components/schemas/Communication"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "OptInPreferences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OptInPreference"
+            }
+          }
+        }
+      },
+      "ValuationDetail": {
+        "type": "object",
+        "required": [
+          "homeownerId",
+          "propertyId"
+        ],
+        "properties": {
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "propertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Valuation": {
+            "$ref": "#/components/schemas/Valuation"
+          }
+        }
+      },
+      "Valuations":{
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ValuationDetail"
+        }
+      },
+      "TaxDetail": {
+        "type": "object",
+        "required": [
+          "homeownerId",
+          "propertyId"
+        ],
+        "properties": {
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "propertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Tax": {
+            "$ref": "#/components/schemas/Tax"
+          }
+        }
+      },
+      "Taxes":{
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/TaxDetail"
+        }
+      },
+      "RiskDetail": {
+        "type": "object",
+        "required": [
+          "homeownerId",
+          "propertyId"
+        ],
+        "properties": {
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "propertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "serviceSourceId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 43567128365
+          },
+          "Crime": {
+            "type": "object",
+            "properties": {
+              "propertyCrimeRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 5
+              },
+              "burglaryRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3
+              },
+              "larcenyRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 7
+              },
+              "vehicleTheftRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 4
+              }
+            }
+          },
+          "Hazard": {
+            "type": "object",
+            "properties": {
+              "hailRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 87
+              },
+              "hurricaneRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 27
+              },
+              "earthquakeRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3
+              },
+              "stormRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 78
+              },
+              "tornadoRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 79
+              },
+              "windRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 113
+              }
+            }
+          },
+          "Weather":{
+            "type": "object",
+            "properties": {
+              "precipAmount": {
+                "type": "number",
+                "format": "double",
+                "example": 14
+              },
+              "avgJanTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 24
+              },
+              "minJanTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 19
+              },
+              "maxJanTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 42
+              },
+              "avgJulTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 82
+              },
+              "minJulTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 67
+              },
+              "maxJulTemp": {
+                "type": "number",
+                "format": "double",
+                "example": 97
+              }
+            }
+          },
+          "Pollution": {
+            "type": "object",
+            "properties": {
+              "airQualityRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 72
+              },
+              "airParticleRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 23
+              },
+              "ozoneRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 17
+              },
+              "smogRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 43
+              },
+              "carbonMonoxideRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 74
+              },
+              "leadRisk": {
+                "type": "integer",
+                "format": "int32",
+                "example": 19
+              }
+            }
+          }
+        }
+      },
+      "Risks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RiskDetail"
+        }
+      },
+      "InsuranceDetail": {
+        "type": "object",
+        "required":[
+          "homeownerId"
+        ],
+        "properties": {
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "Policies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Policy"
+            }
+          },
+          "AddOns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddOn"
+            }
+          }
+        }
+      },
+      "MortgageDetail": {
+        "type": "object",
+        "required":[
+          "homeownerId"
+        ],
+        "properties": {
+          "homeownerId": {
+            "$ref": "#/components/schemas/homeownerId"
+          },
+          "propertyId": {
+            "$ref": "#/components/schemas/propertyId"
+          },
+          "Loans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Loan"
+            }
+          },
+          "Owner": {
+            "type": "object",
+            "properties": {
+              "corporateIndicator": {
+                "type": "boolean",
+                "description": "This indicates if the owner is a corporation."
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Doe",
+                "description": "The last name of the homeowner."
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Doe",
+                "description": "The first name of the homeowner."
+              }
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "fullAddress": {
+            "type": "string",
+            "example": "123 N Adams St, Cheney, KS 67025",
+            "description": "Address of the property all in one line.",
+            "readOnly": true
+          },
+          "country": {
+            "type": "string",
+            "example": "USA",
+            "description": "Country where the property is located."
+          },
+          "countrySubd": {
+            "type": "string",
+            "example": "KS"
+          },
+          "countrySecondarySubd": {
+            "type": "string",
+            "example": "Sedgwick"
+          },
+          "addressLine1": {
+            "type": "string",
+            "example": "123 N Adams St"
+          },
+          "addressLine2": {
+            "type": "string",
+            "example": "Cheney, KS 67025"
+          },
+          "locality": {
+            "type": "string",
+            "example": "Cheney"
+          },
+          "postal1": {
+            "type": "string",
+            "example": "67025"
+          },
+          "postal2": {
+            "type": "string",
+            "example": "1521"
+          },
+          "postal3": {
+            "type": "string",
+            "example": "13"
+          },
+          "subdivision": {
+            "type": "string",
+            "example": "Cheney"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "accuracy": {
+            "type": "string",
+            "example": "Rooftop",
+            "readOnly": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 42.846186,
+            "readOnly": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": -73.846497,
+            "readOnly": true
+          },
+          "geoId": {
+            "type": "string",
+            "example": "CO36091, CS3616353, DB3626670, ND0004865010, ZI12148",
+            "readOnly": true
+          }
+        }
+      },
+      "Area": {
+        "type": "object",
+        "properties": {
+          "areaName": {
+            "type": "string",
+            "example": "BRONX"
+          },
+          "country": {
+            "type": "string",
+            "example": "USA"
+          },
+          "countrySubd": {
+            "type": "string",
+            "example": "NY"
+          },
+          "countrySecondarySubd": {
+            "type": "string",
+            "example": "BRONX"
+          },
+          "locality": {
+            "type": "string",
+            "example": "BRONX"
+          },
+          "postal1": {
+            "type": "string",
+            "example": "10464"
+          },
+          "neighborhood": {
+            "type": "string",
+            "example": "Cambridge Mews"
+          }
+        }
+      },
+      "PropertySummary": {
+        "type": "object",
+        "properties": {
+          "occupancy": {
+            "type": "string",
+            "example": "OWNER OCCUPIED"
+          },
+          "propClass": {
+            "type": "string",
+            "example": "Residential"
+          },
+          "propType": {
+            "type": "string",
+            "example": "Single Family Residence / Townhouse"
+          },
+          "propSubtype": {
+            "type": "string",
+            "example": "SFR"
+          },
+          "yearBuilt": {
+            "type": "string",
+            "example": "2002"
+          },
+          "effectiveYearBuilt": {
+            "type": "string",
+            "example": "2002"
+          },
+          "levelsCount": {
+            "type": "number",
+            "format": "float",
+            "example": 2
+          },
+          "archStyle": {
+            "type": "string",
+            "example": "Colonial"
+          },
+          "sidingType": {
+            "type": "string",
+            "example": "Vinyl Siding"
+          },
+          "viewType": {
+            "type": "string",
+            "example": "Water View"
+          },
+          "beds": {
+            "type": "number",
+            "format": "float",
+            "example": 4
+          },
+          "bathsTotal": {
+            "type": "number",
+            "format": "double",
+            "example": 4.00
+          },
+          "bathsFull": {
+            "type": "number",
+            "format": "float",
+            "example": 3
+          },
+          "bathsPartial": {
+            "type": "number",
+            "format": "float",
+            "example": 1
+          },
+          "roomsTotal": {
+            "type": "number",
+            "format": "float",
+            "example": 9
+          },
+          "basementType": {
+            "type": "string",
+            "example": "Full"
+          },
+          "basementSize": {
+            "type": "number",
+            "format": "double",
+            "example": 1157
+          },
+          "parkingType": {
+            "type": "string",
+            "example": "Attached Garage"
+          },
+          "parkingSize": {
+            "type": "number",
+            "format": "double",
+            "example": 467
+          },
+          "parkingSpaces": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2
+          },
+          "fireplaceInd": {
+            "type": "string",
+            "example": "Y"
+          },
+          "fireplaceCount": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "fireplaceType": {
+            "type": "string",
+            "example": "Wood"
+          },
+          "heatingFuel": {
+            "type": "string",
+            "example": "Oil"
+          },
+          "heatingType": {
+            "type": "string",
+            "example": "Central"
+          },
+          "coolingType": {
+            "type": "string",
+            "example": "Central"
+          },
+          "energyType": {
+            "type": "string",
+            "example": "Electric"
+          },
+          "waterType": {
+            "type": "string",
+            "example": "Public"
+          },
+          "sewerType": {
+            "type": "string",
+            "example": "Septic"
+          },
+          "poolInd": {
+            "type": "string",
+            "example": "Y"
+          },
+          "poolType": {
+            "type": "string",
+            "example": "Inground"
+          },
+          "totalSize": {
+            "type": "number",
+            "format": "double",
+            "example": 3622.25
+          },
+          "livingSpaceSize": {
+            "type": "number",
+            "format": "double",
+            "example": 3500.00
+          },
+          "lotSize1": {
+            "type": "number",
+            "format": "double",
+            "example": 21345
+          },
+          "lotSize2": {
+            "type": "number",
+            "format": "double",
+            "example": 0.49
+          }
+        }
+      },
+      "ListingSummary": {
+        "type": "object",
+        "properties": {
+          "propType": {
+            "type": "string",
+            "example": "Single Family Residence / Townhouse"
+          },
+          "yearBuilt": {
+            "type": "string",
+            "example": "2002"
+          },
+          "levelsCount": {
+            "type": "number",
+            "format": "float",
+            "example": 2
+          },
+          "archStyle": {
+            "type": "string",
+            "example": "Colonial"
+          },
+          "beds": {
+            "type": "number",
+            "format": "float",
+            "example": 4
+          },
+          "bathsTotal": {
+            "type": "number",
+            "format": "double",
+            "example": 4.00
+          },
+          "bathsPartial": {
+            "type": "number",
+            "format": "float",
+            "example": 1
+          },
+          "roomsTotal": {
+            "type": "number",
+            "format": "float",
+            "example": 9
+          },
+          "livingSpaceSize": {
+            "type": "number",
+            "format": "double",
+            "example": 3500.00
+          },
+          "lotSize2": {
+            "type": "number",
+            "format": "double",
+            "example": 0.49
+          }
+        }
+      },
+      "Valuation": {
+        "type": "object",
+        "properties": {
+          "valueDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2021-03-02",
+            "readOnly": true
+          },
+          "valueScore": {
+            "type": "number",
+            "format": "double",
+            "example": 86,
+            "readOnly": true
+          },
+          "valueTarget": {
+            "type": "number",
+            "format": "double",
+            "example": 637854,
+            "readOnly": true
+          },
+          "valueHigh": {
+            "type": "number",
+            "format": "double",
+            "example": 712175,
+            "readOnly": true
+          },
+          "valueLow": {
+            "type": "number",
+            "format": "double",
+            "example": 597855,
+            "readOnly": true
+          },
+          "valueRange": {
+            "type": "number",
+            "format": "double",
+            "example": 114320,
+            "readOnly": true
+          },
+          "valueSize": {
+            "type": "number",
+            "format": "double",
+            "example": 367.56,
+            "readOnly": true
+          },
+          "valueLast": {
+            "type": "number",
+            "format": "double",
+            "example": 631500,
+            "readOnly": true
+          },
+          "valueChangeAmt": {
+            "type": "number",
+            "format": "double",
+            "example": 6354,
+            "readOnly": true
+          },
+          "valueChangePct": {
+            "type": "number",
+            "format": "double",
+            "example": 0.01,
+            "readOnly": true
+          }
+        }
+      },
+      "Sale": {
+        "type": "object",
+        "properties": {
+          "saleDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2002-07-15"
+          },
+          "saleCashMort": {
+            "type": "string",
+            "example": "Mortgage"
+          },
+          "saleAmount": {
+            "type": "number",
+            "format": "double",
+            "example": 413000
+          },
+          "saleCode": {
+            "type": "string",
+            "example": "Actual Amount"
+          },
+          "saleType": {
+            "type": "string",
+            "example": "Resale"
+          },
+          "saleDocType": {
+            "type": "string",
+            "example": "DEED"
+          },
+          "saleDocNumber": {
+            "type": "string",
+            "example": "0000388502"
+          },
+          "saleSize": {
+            "type": "number",
+            "format": "double",
+            "example": 213.17
+          }
+        }
+      },
+      "Tax": {
+        "type": "object",
+        "properties": {
+          "assessedValue": {
+            "type": "number",
+            "format": "double",
+            "example": 522100,
+            "readOnly": true
+          },
+          "assessedImprovementsValue": {
+            "type": "number",
+            "format": "double",
+            "example": 422100,
+            "readOnly": true
+          },
+          "assessedLandValue": {
+            "type": "number",
+            "format": "double",
+            "example": 100000,
+            "readOnly": true
+          },
+          "assessedSize": {
+            "type": "number",
+            "format": "double",
+            "example": 107.52,
+            "readOnly": true
+          },
+          "marketValue": {
+            "type": "number",
+            "format": "double",
+            "example": 521000,
+            "readOnly": true
+          },
+          "marketSize": {
+            "type": "number",
+            "format": "double",
+            "example": 119.87,
+            "readOnly": true
+          },
+          "taxAmount": {
+            "type": "number",
+            "format": "double",
+            "example": 10657
+          },
+          "taxSize": {
+            "type": "number",
+            "format": "double",
+            "example": 4.52
+          },
+          "taxYear": {
+            "type": "string",
+            "example": "2020",
+            "readOnly": true
+          }
+        }
+      },
+      "Media": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://d36xftgacqn2p.cloudfront.net/listingphotos1/sold/H6054165-1.jpg"
+        }
+      },
+      "mediaUploadUrl": {
+        "type": "string",
+        "example": "https://s3.amazonaws.com/#{S3_BUCKET}/#{path}?AWSAccessKeyId=#{S3_ACCESS_KEY_ID}&Expires=#{expire_date}&Signature=#{signature}",
+        "description": "The signed S3 Url"
+      },
+      "MediaUpload": {
+        "type": "object",
+        "required": [
+          "filename",
+          "fileType",
+          "relatedObjectId",
+          "relatedObjectType"
+        ],
+        "properties": {
+          "filename": {
+            "type": "string",
+            "example": "FrontOfHouse.png",
+            "description": "The file name of the file to be uploaded."
+          },
+          "fileType": {
+            "type": "string",
+            "enum": [
+              "jpg",
+              "png",
+              "pdf",
+              "doc",
+              "docx",
+              "xls",
+              "xlsx",
+              "mp4"
+            ],
+            "description": "Enumeration of file types that can be uploaded"
+          },
+          "mediaType": {
+            "type": "string",
+            "enum": [
+              "image",
+              "document",
+              "video"
+            ],
+            "description": "Enumeration of the media type of the file to be uploaded."
+          },
+          "relatedObjectId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 293948393,
+            "description": "The unique identifier of the object this picture is being uploaded for (i.e. - homeownerId, propertyId, etc.)."
+          },
+          "relatedObjectType": {
+            "type": "string",
+            "enum": [
+              "Property",
+              "Homeowner",
+              "Listing"
+            ],
+            "description": "The object type the relatedObjectId represents (i.e. - homeonwer, property, etc.)."
+          },
+          "secure": {
+            "type": "boolean",
+            "description": "Document is only accessible to the homeowner."
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Indicate primary media object to be used as a cover photo or thumbnail where applicable."
+          }
+        }
+
+      },
+      "ListingSnapshot": {
+        "type": "object",
+        "properties": {
+          "mlsListingId": {
+            "type": "string",
+            "example": "2020"
+          },
+          "agentId": {
+            "type": "string",
+            "example": "BH12347"
+          },
+          "listingStatus": {
+            "type": "string",
+            "example": "Pending - Under Contract"
+          },
+          "onMarket": {
+            "type": "boolean"
+          },
+          "brokerId": {
+            "type": "string",
+            "example": "3675HH2"
+          },
+          "brokerName": {
+            "type": "string",
+            "example": "Julia B Fee Sothebys Int. Realty"
+          },
+          "listingRemarks": {
+            "type": "string",
+            "example": "Beautiful lake front property with many features..."
+          },
+          "MlsInfo": {
+            "$ref": "#/components/schemas/MlsInfo"
+          },
+          "ListPrice": {
+            "type": "object",
+            "properties": {
+              "listDate": {
+                "type": "string",
+                "format": "date",
+                "example": "2021-02-01"
+              },
+              "listPrice": {
+                "type": "number",
+                "format": "double",
+                "example": 657000
+              },
+              "listSize":  {
+                "type": "number",
+                "format": "double",
+                "example": 237.32
+              }
+            }
+          },
+          "SalePrice": {
+            "type": "object",
+            "properties": {
+              "saleDate": {
+                "type": "string",
+                "format": "date",
+                "example": "2021-02-01"
+              },
+              "saleAmount": {
+                "type": "number",
+                "format": "double",
+                "example": 657000
+              },
+              "saleSize":  {
+                "type": "number",
+                "format": "double",
+                "example": 122.32
+              }
+            }
+          },
+          "Address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "Location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "ListingSummary": {
+            "$ref": "#/components/schemas/ListingSummary"
+          },
+          "Media": {
+            "$ref": "#/components/schemas/Media"
+          }
+        }
+      },
+      "MlsInfo": {
+        "type": "object",
+        "properties": {
+          "mlsId": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "mlsName": {
+            "type": "string",
+            "example": "Houston Association of REALTORS®"
+          },
+          "realEstateBoard": {
+            "type": "string",
+            "example": "Houston Association of REALTORS®"
+          }
+        }
+      },
+      "Communication": {
+        "type": "object",
+        "properties": {
+          "emailPrimary": {
+            "type": "string",
+            "format": "email",
+            "example": "john@gmail.com"
+          },
+          "emailSecondary": {
+            "type": "string",
+            "format": "email",
+            "example": "john@gmail.com"
+          },
+          "phoneHome": {
+            "type": "string",
+            "example": "214-555-1234"
+          },
+          "phoneWork": {
+            "type": "string",
+            "example": "214-555-1234"
+          },
+          "phoneMobile": {
+            "type": "string",
+            "example": "214-555-1234"
+          },
+          "phoneSpouse": {
+            "type": "string",
+            "example": "214-555-1234"
+          },
+          "emailOptIn": {
+            "type": "boolean"
+          },
+          "emailOptInDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-07-21T17:32:28Z"
+          },
+          "textOptIn": {
+            "type": "boolean"
+          },
+          "textOptInDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-07-21T17:32:28Z"
+          },
+          "phoneOptIn": {
+            "type": "boolean"
+          },
+          "phoneOptInDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-07-21T17:32:28Z"
+          }
+        }
+      },
+      "Name": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Smith"
+          },
+          "middleName": {
+            "type": "string",
+            "example": "Jacob"
+          },
+          "suffixName": {
+            "type": "string",
+            "example": "Jr."
+          },
+          "nickName": {
+            "type": "string",
+            "example": "J.J."
+          },
+          "titleName": {
+            "type": "string",
+            "example": "Dr."
+          }
+        }
+      },
+      "OptInPreference": {
+        "type": "object",
+        "properties": {
+          "optInType": {
+            "type": "string",
+            "example": "cookieAnalytics"
+          },
+          "optIn": {
+            "type": "boolean"
+          },
+          "optInDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2017-07-21T17:32:28Z"
+          }
+        }
+      },
+      "Loan": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "loanId"
+            ],
+            "properties": {
+              "loanId": {
+                "$ref": "#/components/schemas/loanId"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/LoanProperties"
+          }
+        ]
+      },
+      "LoanProperties": {
+        "type": "object",
+        "properties": {
+          "loanStatus": {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Closed",
+              "Deleted"
+            ]
+          },
+          "lenderCompany": {
+            "type": "string",
+            "example": "Supreme Lending",
+            "description": "The name of the lender."
+          },
+          "loanType": {
+            "type": "string",
+            "enum":[
+              "typea",
+              "typeb",
+              "typec"
+            ],
+            "description": "The type of loan."
+          },
+          "loanAmount": {
+            "type": "number",
+            "format": "double",
+            "example": 325000.00,
+            "description": "Original principal amount on the loan."
+          },
+          "loanBalance": {
+            "type": "number",
+            "format": "double",
+            "example": 275000.00,
+            "description": "Estimated outstanding balance on the loan."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2002-07-15",
+            "description": "Original loan start date."
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2002-07-15",
+            "description": "Loan payoff date."
+          },
+          "loanTerm": {
+            "type": "integer",
+            "format": "int32",
+            "example": 360,
+            "description": "Original loan term in months."
+          },
+          "loanInterest": {
+            "type": "number",
+            "format": "double",
+            "example": 3.25,
+            "description": "Original loan interest rate."
+          },
+          "loanInterestType": {
+            "type": "string",
+            "enum":[
+              "typea",
+              "typeb",
+              "typec"
+            ],
+            "description": "The type of interest rate."
+          },
+          "deedType": {
+            "type": "string",
+            "enum":[
+              "typea",
+              "typeb",
+              "typec"
+            ],
+            "description": "The type of deed on the property."
+          },
+          "loanRefinance": {
+            "type": "boolean",
+            "description": "Indicates if the loan is a refinance type."
+          },
+          "loanEquity": {
+            "type": "boolean",
+            "description": "Indicates if the loan is a home equity type."
+          },
+          "titleCompany": {
+            "type": "string",
+            "example": "Chicago Title",
+            "description": "Name of the title company."
+          }
+        }
+      },
+      "Policy": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "policyId"
+            ],
+            "properties": {
+              "policyId": {
+                "$ref": "#/components/schemas/policyId"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/PolicyProperties"
+          }
+        ]
+      },
+      "PolicyProperties": {
+        "type": "object",
+        "properties": {
+          "policyType": {
+            "type": "string",
+            "enum": [
+              "Basic Form HO-1",
+              "Broad Form HO-2",
+              "Special Form HO-3",
+              "Contents Broad Form HO-4",
+              "Comprehensive Form HO-5",
+              "Unit-Owners Form HO-6",
+              "Mobile Home Form HO-7",
+              "Modified Coverage Form HO-8"
+            ],
+            "description": "the specific type of policy the homeowner currently has"
+          },
+          "policyStatus": {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Expired",
+              "Deleted"
+            ]
+          },
+          "policyStartDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2002-07-15",
+            "description": "The start date of the homeowner policy."
+          },
+          "policyExpirationDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2002-07-15",
+            "description": "The expiration date of the homeowner policy."
+          },
+          "policyPremium": {
+            "type": "number",
+            "format": "double",
+            "example": 2394.34,
+            "description": "The annual premium of the homeowner policy."
+          },
+          "policyDeductible": {
+            "type": "number",
+            "format": "double",
+            "example": 8452.32,
+            "description": "The homeowner paid deductible amount of the homeowner policy."
+          },
+          "propertyCoverage": {
+            "type": "number",
+            "format": "double",
+            "example": 250000.00,
+            "description": "The total property coverage of the homeowner policy."
+          },
+          "liabilityCoverage": {
+            "type": "number",
+            "format": "double",
+            "example": 1000000.00,
+            "description": "The total liability coverage of the homeowner policy."
+          },
+          "carrierName": {
+            "type": "string",
+            "example": "State Farm",
+            "description": "The name of the policy carrier."
+          }
+        }
+      },
+      "AddOn": {
+        "type": "object",
+        "required": [
+          "policyId"
+        ],
+        "properties": {
+          "policyId": {
+            "$ref": "#/components/schemas/policyId"
+          },
+          "addOnType": {
+            "type": "string",
+            "enum": [
+              "Auto",
+              "Motorcycle",
+              "Pet",
+              "RV",
+              "Boat",
+              "Flood",
+              "Earthquake",
+              "Windstorm",
+              "Identity"
+            ],
+            "description": "The type of add-on insurance."
+          },
+          "addOnPremium": {
+            "type": "number",
+            "format": "double",
+            "example": 1000.00,
+            "description": "The annual premium of the add-on policy."
+          },
+          "addOnDeductible": {
+            "type": "number",
+            "format": "double",
+            "example": 500.00,
+            "description": "The homeowner paid deductible amount of the add-on policy."
+          },
+          "addOnCoverage": {
+            "type": "number",
+            "format": "double",
+            "example": 25000.00,
+            "description": "The total property coverage of the add-on policy."
+          }
+        }
+      },
+      "homeownerId": {
+        "type": "integer",
+        "format": "int64",
+        "example": 1928485839,
+        "description": "Unique identifier for the homeowner.",
+        "readOnly": true
+      },
+      "contactId": {
+        "type": "integer",
+        "format": "int64",
+        "example": 1928485839,
+        "description": "Unique identifier for the homeowner as a kvCORE contact.",
+        "readOnly": true
+      },
+      "propertyId": {
+        "type": "integer",
+        "format": "int64",
+        "example": 9274890152,
+        "readOnly": true
+      },
+      "policyId": {
+        "type": "integer",
+        "format": "int64",
+        "example": 4739292,
+        "description": "Unique identifier for the policy."
+      },
+      "loanId": {
+        "type": "integer",
+        "format": "int64",
+        "example": 293983,
+        "description": "Unique identifier for the specific loan.",
+        "readOnly": true
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+    },
+    "parameters": {
+      "addressLine1": {
+        "in": "query",
+        "name": "addressLine1",
+        "description": "First line of the property address",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "2221 Main St"
+        }
+      },
+      "locality": {
+        "in": "query",
+        "name": "locality",
+        "description": "Locality, city or town of the property",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Dallas"
+        }
+      },
+      "domain": {
+        "in": "query",
+        "name": "domain",
+        "description": "website domain of the hosting agent and brokerage",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "scottkrelo.feeltheire.com"
+        }
+      },
+      "countrySubd": {
+        "in": "query",
+        "name": "countrySubd",
+        "description": "Two letter state or province abbreviation of the property",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "TX"
+        }
+      },
+      "postal1": {
+        "in": "query",
+        "name": "postal1",
+        "description": "Postal code of the property",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "32212"
+        }
+      },
+      "country": {
+        "in": "query",
+        "name": "country",
+        "description": "The three-digit ISO-3122 country code",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "USA"
+        }
+      },
+      "areaType": {
+        "in": "query",
+        "name": "areaType",
+        "description": "The type of area you wish to use for your search",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum":[
+            "locality",
+            "areaName",
+            "neighborhood",
+            "postal1",
+            "countrySecondarySubd"
+          ]
+        }
+      },
+      "areaId": {
+        "in": "query",
+        "name": "areaId",
+        "description": "The identifier or name of the area to search",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "Dallas"
+        }
+      },
+      "homeownerId": {
+        "in": "path",
+        "name": "homeownerId",
+        "description": "ID of the homeowner",
+        "required":true,
+        "schema": {
+          "$ref": "#/components/schemas/homeownerId"
+        }
+      },
+      "contactId": {
+        "in": "path",
+        "name": "contactId",
+        "description": "contact ID of the homeowner in kvCORE",
+        "required":true,
+        "schema": {
+          "$ref": "#/components/schemas/contactId"
+        }
+      },
+      "propertyId": {
+        "in": "query",
+        "name": "propertyId",
+        "description": "Unique identifier for the property",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/propertyId"
+        }
+      },
+      "loanId": {
+        "in": "path",
+        "name": "loanId",
+        "description": "ID of the loan",
+        "required":true,
+        "schema": {
+          "$ref": "#/components/schemas/loanId"
+        }
+      },
+      "policyId": {
+        "in": "path",
+        "name": "policyId",
+        "description": "ID of the insurance policy",
+        "required":true,
+        "schema": {
+          "$ref": "#/components/schemas/policyId"
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
