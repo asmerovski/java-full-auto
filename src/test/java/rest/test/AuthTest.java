@@ -39,30 +39,4 @@ public class AuthTest extends BaseRestTest {
 
     assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
   }
-
-  @Test
-  @DisplayName("C95463: GET property detail by address - /v1.1/propertyDetail/byAddress")
-  @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
-  void getPropertyDetailByAddress() {
-    Response postTokenResponse = ApiCall.get(
-        "/v1.1/propertyDetail/byAddress/?countrySubd=TX&addressLine1=11114&MaidenfairDr&locality=Tomball&postal1=77375",
-        getAuthenticationHeaders());
-
-//    postTokenResponse.as(TokenDecodeRes.class);
-
-    assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
-  }
-
-  @Test
-  @DisplayName("C95464: Get property detail by homeownerId - /v1.1/propertyDetail/{homeownerId}")
-  @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
-  void getPropertyDetailByHomeownerId() {
-//    Response postTokenResponse = ApiCall.get(
-//            "/v1.1/propertyDetail/" + homeownerId,
-//            getAuthenticationHeaders());
-
-//    postTokenResponse.as(TokenDecodeRes.class);
-
-//    assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
-  }
 }
