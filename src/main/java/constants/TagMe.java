@@ -8,4 +8,5 @@ public class TagMe {
   public static final String REST = "rest";
   public static final String MOBILE = "mobile";
   public static final String AUTH = "auth";
+  public static final String PROPERTY = "property";
 }
