@@ -16,7 +16,7 @@ public class AuthTest extends BaseTest {
   @Tags({@Tag(TagMe.MOBILE), @Tag(TagMe.REGRESSION), @Tag(TagMe.SMOKE), @Tag(TagMe.AUTH)})
   public void userCanSuccessfullyRegister() throws InterruptedException {
 //    SoftAssertions softAssertion = new SoftAssertions();
-    new InitialView(getDriver())
+    new InitialView()
         .submitExistingUserEmail()
         .populateAndSubmitLoginForm();
 

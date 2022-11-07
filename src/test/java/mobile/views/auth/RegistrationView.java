@@ -1,13 +1,10 @@
 package mobile.views.auth;
 
-import io.appium.java_client.AppiumDriver;
+import mobile.views.BaseView;
+import org.openqa.selenium.By;
 
-public class RegistrationView extends InitialView {
+public class RegistrationView extends BaseView {
 
-  private final AppiumDriver driver;
+  By emailInputField = By.xpath("//android.widget.EditText[@content-desc='name']");
 
-  public RegistrationView(AppiumDriver driver) {
-    super(driver);
-    this.driver = driver;
-  }
 }

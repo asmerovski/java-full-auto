@@ -12,7 +12,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class BaseTest {
 
-  ThreadLocal<AndroidDriver> driver = new ThreadLocal<>();
+  static ThreadLocal<AndroidDriver> driver = new ThreadLocal<>();
+
+  public static AndroidDriver getDriver() {
+    return driver.get();
+  }
 
   @BeforeEach
   public void setUp(TestInfo testInfo) throws MalformedURLException {
@@ -41,10 +45,6 @@ public class BaseTest {
     } else {
       localDriverTearDown();
     }
-  }
-
-  public AndroidDriver getDriver() {
-    return driver.get();
   }
 
   private void sauceLabsDriverSetup(TestInfo testInfo) throws MalformedURLException {
@@ -114,15 +114,13 @@ public class BaseTest {
     capabilities.setCapability("autoAcceptAlerts", "true");
     capabilities.setCapability("fullReset", "true");
     capabilities.setCapability("noReset", "false");
-    capabilities.setCapability("app", System.getProperty("user.dir") + "/src/main/resources/apps/app-fayke3990-release.apk");
+    capabilities.setCapability("app",
+        System.getProperty("user.dir") + "/src/main/resources/apps/app-fayke3990-release.apk");
 
     driver.set(new AndroidDriver(new URL("http://localhost:4723/wd/hub/"), capabilities));
   }
 
   private void sauceLabsDriverTearDown() {
-//    String meho = "sauce:job-result=";
-//    System.out.println("Sauce - AfterMethod hook");
-//    ((JavascriptExecutor) getDriver()).executeScript(meho + (result.isSuccess() ? "passed" : "failed"));
     getDriver().quit();
   }
 

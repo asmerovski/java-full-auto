@@ -1,34 +1,34 @@
 package mobile.views.auth;
 
+import static mobile.test.BaseTest.getDriver;
+
 import enums.TestData;
-import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
+import java.sql.Timestamp;
 import mobile.views.BaseView;
 import org.openqa.selenium.By;
 
 public class InitialView extends BaseView {
 
-  private final AppiumDriver driver;
-
   public By emailInput = By.xpath("//*[@content-desc='emailInput']");
   public By submitButton = By.xpath("//android.widget.TextView[@text='Submit']");
 
-  public InitialView(AppiumDriver driver) {
-    super(driver);
-    this.driver = driver;
-  }
-
   @Step("Input email and submit")
   public LoginView submitExistingUserEmail() {
-    driver.findElement(emailInput).sendKeys(TestData.EMAIL.get());
-    driver.findElement(submitButton).click();
-    return new LoginView(driver);
+    getDriver().findElement(emailInput).sendKeys(TestData.EMAIL.get());
+    getDriver().findElement(submitButton).click();
+
+    return new LoginView();
   }
 
   @Step("Input email and submit")
   public RegistrationView submitNewUserEmail() {
-    driver.findElement(emailInput).sendKeys(TestData.EMAIL.get());
-    driver.findElement(submitButton).click();
-    return new RegistrationView(driver);
+    getDriver().findElement(emailInput).sendKeys(
+        "ire.holp.qa+" +
+            new Timestamp(System.currentTimeMillis()).getTime() +
+            "@gmail.com");
+    getDriver().findElement(submitButton).click();
+
+    return new RegistrationView();
   }
 }
