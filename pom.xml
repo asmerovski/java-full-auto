@@ -23,8 +23,7 @@
     <commons-io.version>2.11.0</commons-io.version>
     <assertj.version>3.23.1</assertj.version>
     <rest-assured.version>5.2.0</rest-assured.version>
-    <selenium.version>4.5.3</selenium.version>
-    <webdriver-manager.version>5.3.0</webdriver-manager.version>
+    <selenium.version>4.6.0</selenium.version>
   </properties>
 
   <dependencies>
@@ -92,12 +91,6 @@
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>${selenium.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-    <dependency>
-      <groupId>io.github.bonigarcia</groupId>
-      <artifactId>webdrivermanager</artifactId>
-      <version>${webdriver-manager.version}</version>
     </dependency>
     <!-- MOBILE DEPENDENCIES -->
     <!-- https://mvnrepository.com/artifact/io.appium/java-client -->

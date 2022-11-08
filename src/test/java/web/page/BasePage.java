@@ -1,39 +1,34 @@
 package web.page;
 
-import io.qameta.allure.Step;
+import static web.test.BaseWebTest.getDriver;
+
 import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 public class BasePage {
 
-  private static final int TIMEOUT = 5;
-  private static final int POLLING = 100;
-  private final WebDriverWait wait;
-  protected WebDriver driver;
+  protected Wait<WebDriver> fluentWait;
 
-  public BasePage(WebDriver driver) {
-    this.driver = driver;
-    wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT), Duration.ofSeconds(POLLING));
-    PageFactory.initElements(new AjaxElementLocatorFactory(driver, TIMEOUT), this);
+  public BasePage() {
+    this.fluentWait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(15))
+        .pollingEvery(Duration.ofSeconds(1))
+        .ignoring(NoSuchElementException.class);
   }
 
-  @Step("Wait for element to appear")
   protected void waitForElementToAppear(By locator) {
-    wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
   }
 
-  @Step("Wait for element to disappear")
   protected void waitForElementToDisappear(By locator) {
-    wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
   }
 
-  @Step("Wait for text to disappear")
   protected void waitForTextToDisappear(By locator, String text) {
-    wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(locator, text)));
+    fluentWait.until(ExpectedConditions.not(ExpectedConditions.textToBe(locator, text)));
   }
 }
