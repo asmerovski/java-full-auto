@@ -3,12 +3,8 @@ package rest.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import constants.TagMe;
-import enums.TestData;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import model.auth.TokenDecodeRes;
-import model.auth.TokenReq;
-import model.auth.TokenRes;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

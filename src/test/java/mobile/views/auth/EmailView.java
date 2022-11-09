@@ -19,6 +19,7 @@ public class EmailView extends BaseView {
 
   @Step("Input email and submit")
   public LoginView submitExistingUserEmail() {
+    waitForEmailInputVisibility();
     getDriver().findElement(emailInput).sendKeys(TestData.EMAIL.get());
     getDriver().findElement(submitButton).click();
 
@@ -27,6 +28,7 @@ public class EmailView extends BaseView {
 
   @Step("Input email and submit")
   public RegistrationView submitNewUserEmail() {
+    waitForEmailInputVisibility();
     getDriver().findElement(emailInput)
         .sendKeys("ire.holp.qa+" + new Timestamp(System.currentTimeMillis()).getTime() + "@gmail.com");
     getDriver().findElement(submitButton).click();

@@ -39,6 +39,7 @@ public class AuthTest extends BaseTest {
   @Tags({@Tag(TagMe.MOBILE), @Tag(TagMe.REGRESSION), @Tag(TagMe.SMOKE), @Tag(TagMe.AUTH)})
   public void successfulRegistration() throws InterruptedException {
     new EmailView()
+        .waitForEmailInputVisibility()
         .submitNewUserEmail();
 
     Thread.sleep(5000);
