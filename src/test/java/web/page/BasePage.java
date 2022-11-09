@@ -2,6 +2,7 @@ package web.page;
 
 import static web.test.BaseWebTest.getDriver;
 
+import io.qameta.allure.Step;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,14 +21,17 @@ public class BasePage {
         .ignoring(NoSuchElementException.class);
   }
 
-  protected void waitForElementToAppear(By locator) {
+  @Step("Wait for element visibility")
+  protected void waitForElementVisibility(By locator) {
     fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
   }
 
+  @Step("Wait for element to disappear")
   protected void waitForElementToDisappear(By locator) {
     fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
   }
 
+  @Step("Wait for text to disappear")
   protected void waitForTextToDisappear(By locator, String text) {
     fluentWait.until(ExpectedConditions.not(ExpectedConditions.textToBe(locator, text)));
   }

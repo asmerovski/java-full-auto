@@ -17,5 +17,4 @@ public class LoginModal extends BasePage {
 
     return new MyHomePage();
   }
-
 }

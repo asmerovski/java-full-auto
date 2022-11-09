@@ -18,8 +18,16 @@ public class MyHomePage extends BasePage {
 
   @Step("Open Login Modal")
   public LoginModal openLoginModal() {
-    waitForElementToAppear(loginButton);
+    waitForElementVisibility(loginButton);
     getDriver().findElement(loginButton).click();
     return new LoginModal();
+  }
+
+  public void waitForSignInButtonToBeGone() {
+    waitForElementToDisappear(loginButton);
+  }
+
+  public void waitForSignInButtonToBeVisible() {
+    waitForElementVisibility(loginButton);
   }
 }
