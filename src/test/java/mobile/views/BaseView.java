@@ -16,7 +16,7 @@ public class BaseView {
   protected Wait<AndroidDriver> fluentWait;
 
   public BaseView() {
-    this.fluentWait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(15))
+    this.fluentWait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(20))
         .pollingEvery(Duration.ofSeconds(1))
         .ignoring(NoSuchElementException.class);
   }
@@ -24,6 +24,11 @@ public class BaseView {
   @Step("Wait for element visibility")
   protected void waitForElementVisibility(By locator) {
     fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+  }
+
+  @Step("Wait until element tappable")
+  protected void waitUntilElementTappable(By locator) {
+    fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
   }
 
   @Step("Navigate back")

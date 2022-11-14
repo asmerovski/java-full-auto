@@ -16,7 +16,7 @@ import util.ApiCall;
 public class PropertyTest extends BaseRestTest {
 
   @Test
-  @DisplayName("C95463: GET property detail by address - /v1.1/propertyDetail/byAddress")
+  @DisplayName("C95463 - GET property detail by address - /v1.1/propertyDetail/byAddress")
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.PROPERTY)})
   void getPropertyDetailByAddress() {
     Response postTokenResponse = ApiCall.get(

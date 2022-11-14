@@ -2,9 +2,7 @@ package mobile.views.auth;
 
 import static mobile.test.BaseTest.getDriver;
 
-import enums.TestData;
 import io.qameta.allure.Step;
-import java.sql.Timestamp;
 import mobile.views.BaseView;
 import org.openqa.selenium.By;
 
@@ -18,19 +16,18 @@ public class EmailView extends BaseView {
   public By submitButton = By.xpath("//android.widget.TextView[@text='Submit']");
 
   @Step("Input email and submit")
-  public LoginView submitExistingUserEmail() {
+  public LoginView submitExistingUserEmail(String userEmail) {
     waitForEmailInputVisibility();
-    getDriver().findElement(emailInput).sendKeys(TestData.EMAIL.get());
+    getDriver().findElement(emailInput).sendKeys(userEmail);
     getDriver().findElement(submitButton).click();
 
     return new LoginView();
   }
 
   @Step("Input email and submit")
-  public RegistrationView submitNewUserEmail() {
+  public RegistrationView submitNewUserEmail(String userEmail) {
     waitForEmailInputVisibility();
-    getDriver().findElement(emailInput)
-        .sendKeys("ire.holp.qa+" + new Timestamp(System.currentTimeMillis()).getTime() + "@gmail.com");
+    getDriver().findElement(emailInput).sendKeys(userEmail);
     getDriver().findElement(submitButton).click();
 
     return new RegistrationView();

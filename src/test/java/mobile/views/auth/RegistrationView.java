@@ -4,8 +4,8 @@ import static mobile.test.BaseTest.getDriver;
 
 import enums.TestData;
 import io.qameta.allure.Step;
+import mobile.util.MobActions;
 import mobile.views.BaseView;
-import mobile.views.MyHomeView;
 import org.openqa.selenium.By;
 
 public class RegistrationView extends BaseView {
@@ -19,13 +19,24 @@ public class RegistrationView extends BaseView {
   By nextButton = By.xpath("//android.view.ViewGroup[@content-desc='submitButton']");
 
   @Step("Populate and submit Registration Form")
-  public MyHomeView populateRegistrationFormWithValidPasswordAndSubmit() {
-    getDriver().findElement(nameField).sendKeys("Test User");
-    getDriver().findElement(zipcodeField).sendKeys("");
+  public MyAgentsView populateRegistrationFormWithValidPasswordAndSubmit() {
+    waitForEmailInputVisibility();
+    getDriver().findElement(nameField).sendKeys("Regression User");
+    getDriver().findElement(zipcodeField).sendKeys("10016");
+    MobActions.scrollToText("Password");
     getDriver().findElement(passwordField).sendKeys(TestData.MOBILE_PASSWORD.get());
+    MobActions.scrollToText("Confirm Password");
+    getDriver().findElement(confirmPasswordField).sendKeys(TestData.MOBILE_PASSWORD.get());
+    MobActions.scrollToText("Next");
+    getDriver().findElement(agreeToTermsRadioButton).click();
     getDriver().findElement(nextButton).click();
 
-    return new MyHomeView();
+    return new MyAgentsView();
   }
 
+  @Step("Wait for 'Name' input field to be visible")
+  public RegistrationView waitForEmailInputVisibility() {
+    waitForElementVisibility(nameField);
+    return this;
+  }
 }

@@ -2,6 +2,8 @@ package web.test;
 
 import constants.TagMe;
 import enums.TestData;
+import io.qameta.allure.Issue;
+import io.qameta.allure.TmsLink;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -12,8 +14,10 @@ import web.page.MyHomePage;
 public class AuthenticationTest extends BaseWebTest {
 
   @Test
-  @DisplayName("C95579 Login - Existing kVcore user can successfully log in")
-  @Tags({@Tag(TagMe.WEB), @Tag(TagMe.REGRESSION)})
+  @TmsLink("CH-2534")
+  @Issue("CH-2279")
+  @DisplayName("C95811 - Login - Existing kVcore user can successfully log in")
+  @Tags({@Tag(TagMe.WEB), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   public void loginWithExistingUser() {
     new MyHomePage()
         .open()
@@ -23,8 +27,8 @@ public class AuthenticationTest extends BaseWebTest {
   }
 
   @Test
-  @DisplayName("C95750 Logout - Logged in user can successfully log out")
-  @Tags({@Tag(TagMe.WEB), @Tag(TagMe.REGRESSION)})
+  @DisplayName("C95817 - Logout - Logged in user can successfully log out")
+  @Tags({@Tag(TagMe.WEB), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   public void loginOutWithExistingUser() {
     new MyHomePage()
         .open()

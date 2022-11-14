@@ -18,6 +18,7 @@ public class LoginView extends BaseView {
 
   @Step("Populate and submit Login Form")
   public MyHomeView populateLoginFormWithValidPasswordAndSubmit() {
+    waitForElement(passwordField);
     getDriver().findElement(passwordField).sendKeys(TestData.MOBILE_PASSWORD.get());
     getDriver().findElement(loginButton).click();
 
@@ -26,6 +27,7 @@ public class LoginView extends BaseView {
 
   @Step("Navigate back by tapping 'Wrong Email?' Text")
   public EmailView navigateBackWithWrongEmailAction() {
+    waitForElement(wrongEmailLink);
     getDriver().findElement(wrongEmailLink).click();
 
     return new EmailView();
@@ -36,5 +38,10 @@ public class LoginView extends BaseView {
     getDriver().findElement(forgotPasswordLink).click();
 
     return new ForgotPasswordView();
+  }
+
+  @Step("Wait for element present")
+  public void waitForElement(By by) {
+    waitForElementVisibility(by);
   }
 }

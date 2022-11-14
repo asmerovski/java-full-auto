@@ -20,7 +20,7 @@ import util.ApiCall;
 public class AuthTest extends BaseRestTest {
 
   @Test
-  @DisplayName("C95461: POST token - /v1/token")
+  @DisplayName("C95461 - POST token - /v1/token")
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.SMOKE), @Tag(TagMe.AUTH)})
   void postToken() {
     // This will make a request
@@ -32,7 +32,7 @@ public class AuthTest extends BaseRestTest {
   }
 
   @Test
-  @DisplayName("C95462: POST token decode by encrypted key - /v1/tokenDecode/{encryptedKey}")
+  @DisplayName("C95462 - POST token decode by encrypted key - /v1/tokenDecode/{encryptedKey}")
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   void postTokenDecode() {
     Response postTokenResponse = ApiCall.post("/v1/tokenDecode/" + TestData.ENCRYPTED_KEY.get());
