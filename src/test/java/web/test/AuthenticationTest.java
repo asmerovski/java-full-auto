@@ -2,6 +2,7 @@ package web.test;
 
 import constants.TagMe;
 import enums.TestData;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.TmsLink;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import web.page.LeftHandSideMenu;
 import web.page.MyHomePage;
 
+@Feature("Authentication")
 public class AuthenticationTest extends BaseWebTest {
 
   @Test

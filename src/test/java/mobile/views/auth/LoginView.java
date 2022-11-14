@@ -15,7 +15,6 @@ public class LoginView extends BaseView {
   By wrongEmailLink = By.xpath("//android.widget.TextView[@text='Wrong Email?']");
   By forgotPasswordLink = By.xpath("//android.widget.TextView[@text='Forgot Password?']");
 
-
   @Step("Populate and submit Login Form")
   public MyHomeView populateLoginFormWithValidPasswordAndSubmit() {
     waitForElement(passwordField);

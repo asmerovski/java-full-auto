@@ -22,14 +22,11 @@ public class BaseTest {
   public void setUp(TestInfo testInfo) throws MalformedURLException {
     if (System.getProperty(ProjectConstants.REMOTE) != null) {
       if (System.getProperty(ProjectConstants.SERVICE).equals(ProjectConstants.SAUCE_LABS)) {
-        System.out.println("******* RUNNING SAUCE LABS");
         sauceLabsDriverSetup(testInfo);
       } else if (System.getProperty(ProjectConstants.SERVICE).equals(ProjectConstants.BROWSERSTACK)) {
-        System.out.println("******* RUNNING BROWSERSTACK");
         browserstackDriverSetup();
       }
     } else {
-      System.out.println("******* RUNNING LOCAL");
       localDriverSetup();
     }
   }
@@ -48,15 +45,12 @@ public class BaseTest {
   }
 
   private void sauceLabsDriverSetup(TestInfo testInfo) throws MalformedURLException {
-    System.out.println("Sauce Android Native - BeforeMethod hook");
-
     String username = "oauth-amir.gudic-92595";
     String accessKey = "777b56b0-bd77-4c45-8cb5-f8ca278e4d02";
 
     String sauceUrl = "@ondemand.eu-central-1.saucelabs.com:443";
 
     String SAUCE_REMOTE_URL = "https://" + username + ":" + accessKey + sauceUrl + "/wd/hub";
-    System.out.println("****** URL: " + SAUCE_REMOTE_URL);
 
     URL url = new URL(SAUCE_REMOTE_URL);
 
@@ -77,7 +71,6 @@ public class BaseTest {
     try {
       driver.set(new AndroidDriver(url, capabilities));
     } catch (Exception e) {
-      System.out.println("*** Problem to create the Android driver " + e.getMessage());
       throw new RuntimeException(e);
     }
   }

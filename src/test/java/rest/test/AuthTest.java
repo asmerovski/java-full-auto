@@ -36,9 +36,7 @@ public class AuthTest extends BaseRestTest {
   @Tags({@Tag(TagMe.REST), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
   void postTokenDecode() {
     Response postTokenResponse = ApiCall.post("/v1/tokenDecode/" + TestData.ENCRYPTED_KEY.get());
-
     postTokenResponse.as(TokenDecodeRes.class);
-
     assertEquals(HttpStatus.SC_OK, postTokenResponse.statusCode());
   }
 }
