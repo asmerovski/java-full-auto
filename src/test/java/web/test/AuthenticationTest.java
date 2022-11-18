@@ -31,7 +31,7 @@ public class AuthenticationTest extends BaseWebTest {
   @Test
   @DisplayName("C95817 - Logout - Logged in user can successfully log out")
   @Tags({@Tag(TagMe.WEB), @Tag(TagMe.REGRESSION), @Tag(TagMe.AUTH)})
-  public void loginOutWithExistingUser() {
+  public void logOutWithExistingUser() {
     new MyHomePage()
         .open()
         .openLoginModal()

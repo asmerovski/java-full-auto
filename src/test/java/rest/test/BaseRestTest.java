@@ -3,6 +3,7 @@ package rest.test;
 import static util.Hooks.attachLog;
 import static util.Hooks.clearLogs;
 
+import common.WatcherApi;
 import enums.TestData;
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
@@ -10,15 +11,26 @@ import io.restassured.http.Headers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import testrail.TestRail;
 
 /**
  * In order to use hook BeforeAll we need to extend our Test classes with BaseClass.
  */
+@ExtendWith(WatcherApi.class)
 public class BaseRestTest {
+
+  private static final int REGRESSION_SUITE_API = 640;
+  private static final String RUN_NAME = "Regression Run - API";
+  public static int apiRegressionRunId;
 
   @BeforeAll
   public static void setBaseURL() {
     RestAssured.baseURI = TestData.REST_BASE_URL.get();
+
+    if (apiRegressionRunId == 0) {
+      apiRegressionRunId = TestRail.startNewRun(REGRESSION_SUITE_API, RUN_NAME);
+    }
   }
 
   @BeforeEach
